@@ -17,10 +17,10 @@ namespace SoatVe.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("SoatVe.Models.ChuongTrinh", b =>
                 {
@@ -91,6 +91,25 @@ namespace SoatVe.Migrations
                     b.ToTable("MenuHoTros");
                 });
 
+            modelBuilder.Entity("SoatVe.Models.NguoiDung", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sdt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NguoiDungs");
+                });
+
             modelBuilder.Entity("SoatVe.Models.TinTuc", b =>
                 {
                     b.Property<Guid>("Id")
@@ -115,6 +134,31 @@ namespace SoatVe.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TinTucs");
+                });
+
+            modelBuilder.Entity("SoatVe.Models.Ve", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Gia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NgayDien")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("QRCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Soluong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ves");
                 });
 #pragma warning restore 612, 618
         }

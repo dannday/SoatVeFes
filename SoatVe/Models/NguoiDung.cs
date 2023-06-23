@@ -1,6 +1,6 @@
 ﻿namespace SoatVe.Models
 {
-    public class CaNhan
+    public class NguoiDung
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
