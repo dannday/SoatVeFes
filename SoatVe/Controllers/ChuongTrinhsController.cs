@@ -1,8 +1,10 @@
 ﻿///using DurableTask.Core.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SoatVe.Interface;
 using SoatVe.Models;
-using SoatVe.Repository;
+using System;
 
 namespace SoatVe.Controllers
 {
@@ -28,35 +30,70 @@ namespace SoatVe.Controllers
         }
 
 
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
+        //{
+
+        //    var ctrinhs = await _cTRepository.Create(ctrinh);
+        //    return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetTieu_Diem()
+        //{
+        //    var ctrinhs = await _cTRepository.GetTieu_Diem();
+        //    return Ok(ctrinhs);
+        //}
+
+
+
+
+
+
         [HttpPost]
-        public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
+        public async Task<IActionResult> AddChuongTrinh(AddChuongTrinhRequest addChuongTrinhRequest)
         {
-            var ctrinhs = await _cTRepository.Create(ctrinh);
-            return CreatedAtAction(nameof(GetById),new{id=ctrinh.Id },ctrinhs );
+            var ctrinhs = new ChuongTrinh()
+            {
+                Id = Guid.NewGuid(),
+                Ten = addChuongTrinhRequest.Ten,
+                DiaDiem = addChuongTrinhRequest.DiaDiem,
+                HinhAnh = addChuongTrinhRequest.HinhAnh,
+                MoTa = addChuongTrinhRequest.MoTa,
+                type_progame = addChuongTrinhRequest.type_progame,
+
+            };
+
+            await _cTRepository.Create(ctrinhs);
+
+            return Ok(ctrinhs);
         }
 
 
 
         [HttpPut]
-        [Route("{id}")]
-
-        public async Task<IActionResult> Update(Guid id, Models.ChuongTrinh ctrinh)
+        [Route("{id:guid}")]
+        public async Task<IActionResult> UpdateChuongTrinhRequest([FromRoute] Guid id, UpdateChuongTrinhRequest updateChuongTrinhRequest)
         {
-            if (!ModelState.IsValid) 
-                return BadRequest(ModelState);
-
-
-            var CTFromDb = await _cTRepository.GetById(id);
-
-            if (CTFromDb == null)
+            var ctrinh = await _cTRepository.GetById(id);
+            if (ctrinh != null)
             {
-                return NotFound();
+                ctrinh.Ten = updateChuongTrinhRequest.Ten;
+                ctrinh.DiaDiem = updateChuongTrinhRequest.DiaDiem;
+                ctrinh.HinhAnh = updateChuongTrinhRequest.HinhAnh;
+                ctrinh.MoTa = updateChuongTrinhRequest.MoTa;
+
+                await _cTRepository.Update(ctrinh);
+
+                return Ok(ctrinh);
             }
 
-
-            var ctrinhs = await _cTRepository.Update(ctrinh);
-            return Ok(ctrinhs);
+            return NotFound();
         }
+
+
+        
+       
 
 
         [HttpGet]

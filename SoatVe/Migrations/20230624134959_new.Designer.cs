@@ -12,8 +12,8 @@ using SoatVe.Data;
 namespace SoatVe.Migrations
 {
     [DbContext(typeof(SoatVeDbContext))]
-    [Migration("20230623190423_Intital")]
-    partial class Intital
+    [Migration("20230624134959_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,10 +35,6 @@ namespace SoatVe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Gia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("HinhAnh")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -50,6 +46,9 @@ namespace SoatVe.Migrations
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("type_progame")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -79,7 +78,7 @@ namespace SoatVe.Migrations
                     b.ToTable("DiaDiems");
                 });
 
-            modelBuilder.Entity("SoatVe.Models.MenuHoTro", b =>
+            modelBuilder.Entity("SoatVe.Models.Menu", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,26 +90,7 @@ namespace SoatVe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MenuHoTros");
-                });
-
-            modelBuilder.Entity("SoatVe.Models.NguoiDung", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Sdt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NguoiDungs");
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("SoatVe.Models.TinTuc", b =>
@@ -139,13 +119,32 @@ namespace SoatVe.Migrations
                     b.ToTable("TinTucs");
                 });
 
+            modelBuilder.Entity("SoatVe.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sdt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("SoatVe.Models.Ve", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Gia")
+                    b.Property<string>("GiaVe")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

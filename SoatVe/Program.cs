@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SoatVe.Data;
+using SoatVe.Interface;
 using SoatVe.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,16 @@ builder.Services.AddDbContext<SoatVeDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SoatVeConnectionStrings")));
 
 builder.Services.AddTransient<ICTRepository,CTRepository>();
+builder.Services.AddTransient<IVeRepository, VeRepository>();
+builder.Services.AddTransient<IMenuRepository, MenuRepository>();
+builder.Services.AddTransient<ITinTucRepository, TinTucRepository>();
+builder.Services.AddTransient<IDiaDiemRepository, DiaDiemRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+
+
+
+
 
 var app = builder.Build();
 

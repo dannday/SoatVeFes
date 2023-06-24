@@ -2,7 +2,7 @@
 
 namespace SoatVe.Controllers
 {
-    public class MenuHoTrosController : Controller
+    public class UserController : Controller
     {
         public IActionResult Index()
         {

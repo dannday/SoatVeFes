@@ -9,7 +9,7 @@
         public string HinhAnh { get; set; }
         public string MoTa { get; set; }
 
-        public string Gia { get; set; }
+        public int type_progame { get; set; }
 
     }
 
@@ -28,7 +28,9 @@
         public string DiaDiem { get; set; }
         public string HinhAnh { get; set; }
         public string MoTa { get; set; }
-        public string Gia { get; set; }
+        public int type_progame { get; set; }
+
+
     }
 
     public class UpdateChuongTrinhRequest
@@ -37,7 +39,6 @@
         public string DiaDiem { get; set; }
         public string HinhAnh { get; set; }
         public string MoTa { get; set; }
-        public string Gia { get; set; }
     }
 
 }

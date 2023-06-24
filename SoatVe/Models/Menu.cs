@@ -1,6 +1,6 @@
 ﻿namespace SoatVe.Models
 {
-    public class MenuHoTro
+    public class Menu
     {
         public Guid Id { get; set; }
         public string Ten { get; set; }

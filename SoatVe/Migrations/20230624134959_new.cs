@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SoatVe.Migrations
 {
     /// <inheritdoc />
-    public partial class Intital : Migration
+    public partial class @new : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace SoatVe.Migrations
                     DiaDiem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HinhAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gia = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    type_progame = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,7 @@ namespace SoatVe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuHoTros",
+                name: "Menus",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -50,20 +50,7 @@ namespace SoatVe.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuHoTros", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NguoiDungs",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NguoiDungs", x => x.Id);
+                    table.PrimaryKey("PK_Menus", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,13 +69,26 @@ namespace SoatVe.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ves",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     NgayDien = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Soluong = table.Column<int>(type: "int", nullable: false),
-                    Gia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GiaVe = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QRCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -107,13 +107,13 @@ namespace SoatVe.Migrations
                 name: "DiaDiems");
 
             migrationBuilder.DropTable(
-                name: "MenuHoTros");
-
-            migrationBuilder.DropTable(
-                name: "NguoiDungs");
+                name: "Menus");
 
             migrationBuilder.DropTable(
                 name: "TinTucs");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Ves");
