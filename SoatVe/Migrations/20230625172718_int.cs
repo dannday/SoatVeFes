@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SoatVe.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class @int : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace SoatVe.Migrations
                 name: "ChuongTrinhs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaDiem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HinhAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -31,7 +32,8 @@ namespace SoatVe.Migrations
                 name: "DiaDiems",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HinhAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NoiDung = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -42,22 +44,24 @@ namespace SoatVe.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menus",
+                name: "ThongTins",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menus", x => x.Id);
+                    table.PrimaryKey("PK_ThongTins", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "TinTucs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HinhAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NoiDung = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -72,7 +76,8 @@ namespace SoatVe.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sdt = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -85,7 +90,8 @@ namespace SoatVe.Migrations
                 name: "Ves",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NgayDien = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Soluong = table.Column<int>(type: "int", nullable: false),
                     GiaVe = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -107,7 +113,7 @@ namespace SoatVe.Migrations
                 name: "DiaDiems");
 
             migrationBuilder.DropTable(
-                name: "Menus");
+                name: "ThongTins");
 
             migrationBuilder.DropTable(
                 name: "TinTucs");

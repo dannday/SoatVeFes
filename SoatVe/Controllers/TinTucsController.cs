@@ -41,23 +41,23 @@ namespace SoatVe.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> AddTinTuc(AddTinTucRequest addTinTucRequest)
-        {
-            var tintuc = new TinTuc()
-            {
-                Id = Guid.NewGuid(),
-                Ten = addTinTucRequest.Ten,
-                HinhAnh = addTinTucRequest.HinhAnh,
-                NoiDung = addTinTucRequest.NoiDung,
-                NgayDang = addTinTucRequest.NgayDang
-            };
+        //[HttpPost]
+        //public async Task<IActionResult> AddTinTuc(AddTinTucRequest addTinTucRequest)
+        //{
+        //    var tintuc = new TinTuc()
+        //    {
+        //        Id = addTinTucRequest.ToString(Int32),
+        //        Ten = addTinTucRequest.Ten,
+        //        HinhAnh = addTinTucRequest.HinhAnh,
+        //        NoiDung = addTinTucRequest.NoiDung,
+        //        NgayDang = addTinTucRequest.NgayDang
+        //    };
 
-            await dbContext.TinTucs.AddAsync(tintuc);
-            await dbContext.SaveChangesAsync();
+        //    await dbContext.TinTucs.AddAsync(tintuc);
+        //    await dbContext.SaveChangesAsync();
 
-            return Ok(tintuc);
-        }
+        //    return Ok(tintuc);
+        //}
 
 
         [HttpPut]

@@ -55,7 +55,7 @@ namespace SoatVe.Repository
             return ddiem;
         }
 
-        public async Task<DiaDiem> GetById(Guid id)
+        public async Task<DiaDiem> GetById(int id)
         {
             return await _dbContext.DiaDiems.FindAsync(id);
         }

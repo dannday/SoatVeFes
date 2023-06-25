@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SoatVe.Interface;
 using SoatVe.Models;
+using SoatVe.Repository;
 
 namespace SoatVe.Controllers
 {
@@ -17,48 +19,58 @@ namespace SoatVe.Controllers
         }
 
 
-        //hi
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var ves = await _veRepository.GetVes();
-            return Ok(ves);
-        }
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Models.Ve ve)
+        //[HttpGet]
+        //public async Task<Ve> GetAll()
         //{
-        //    var ves = await _veRepository.Create(ve);
-        //    return CreatedAtAction(nameof(GetById), new { id = ve.Id }, ves);
+        //    return Ok(await _veRepository.GetAll.ToListAsync());
         //}
 
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> AddVe(AddVeRequest addVeRequest)
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
-            var ves = new Ve()
-            {
-                Id = Guid.NewGuid(),
-                NgayDien= addVeRequest.NgayDien,
-                Soluong = addVeRequest.Soluong,
-                GiaVe = addVeRequest.GiaVe,
-                QRCode= addVeRequest.QRCode,    
-            };
-
-            await _veRepository.Create(ves);
-
-            return Ok(ves);
+            var ctrinhs = await _veRepository.GetVes();
+            return Ok(ctrinhs);
         }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.Ve ve)
+        {
+            var ves = await _veRepository.Create(ve);
+            return CreatedAtAction(nameof(GetById), new { id = ve.Id }, ves);
+        }
+
+
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddVe(AddVeRequest addVeRequest)
+        //{
+        //    var ves = new Ve()
+        //    {
+        //      //  Id = Guid.NewGuid(),
+
+        //        NgayDien= addVeRequest.NgayDien,
+        //        Soluong = addVeRequest.Soluong,
+        //        GiaVe = addVeRequest.GiaVe,
+        //        QRCode= addVeRequest.QRCode,    
+        //    };
+
+        //    await _veRepository.Create(ves);
+
+        //    return Ok(ves);
+        //}
 
 
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateVeRequest([FromRoute] Guid id, UpdateVeRequest updateVeRequest)
+        public async Task<IActionResult> UpdateVeRequest([FromRoute] int id, UpdateVeRequest updateVeRequest)
         {
             var ve = await _veRepository.GetById(id);
             if (ve != null)
@@ -100,7 +112,7 @@ namespace SoatVe.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var ves = await _veRepository.GetById(id);
 

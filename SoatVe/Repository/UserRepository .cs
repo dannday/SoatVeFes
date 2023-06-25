@@ -39,7 +39,7 @@ namespace SoatVe.Repository
 
         //    //var ctrinh = new User()
         //    //{
-        //    //    Id = Guid.NewGuid(),
+        //    //    Id = int.Newint(),
         //    //    Ten = addUserRequest.Ten,
         //    //    DiaDiem = addUserRequest.DiaDiem,
         //    //    HinhAnh = addUserRequest.HinhAnh,
@@ -78,7 +78,7 @@ namespace SoatVe.Repository
             return ctrinh;
         }
 
-        public async Task<User> GetById(Guid id)
+        public async Task<User> GetById(int id)
         {
             return await _dbContext.Users.FindAsync(id);
         }

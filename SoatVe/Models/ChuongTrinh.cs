@@ -1,8 +1,12 @@
-﻿namespace SoatVe.Models
+﻿using Castle.Components.DictionaryAdapter;
+using Microsoft.EntityFrameworkCore;
+
+namespace SoatVe.Models
 {
     public class ChuongTrinh
     {
-        public Guid Id { get; set; }
+       
+        public int Id { get; set; }
         public string Ten { get; set; }
         public string DiaDiem { get; set; }
 

@@ -2,14 +2,14 @@
 {
     public class Ve
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime NgayDien { get; set; }
         public int Soluong { get; set; }
         public string GiaVe { get; set; }
         public string QRCode { get; set; }
 
-        
+        //public virtual ChuongTrinh ChuongTrinh { get; set; }
     }
 
 

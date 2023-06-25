@@ -9,7 +9,7 @@ namespace SoatVe.Interface
         Task<ChuongTrinh> Create(ChuongTrinh ctrinh);
         Task<ChuongTrinh> Update(ChuongTrinh ctrinh);
         Task<ChuongTrinh> Delete(ChuongTrinh ctrinh);
-        Task<ChuongTrinh> GetById(Guid id);
+        Task<ChuongTrinh> GetById(int id);
 
         //Task<ChuongTrinh> GetTieu_Diem();
 

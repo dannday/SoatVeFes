@@ -2,9 +2,11 @@
 {
     public class VeDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime NgayDien { get; set; }
 
         public string QRCode { get; set; }
+
+        public virtual ChuongTrinh ChuongTrinh { get; set; }
     }
 }

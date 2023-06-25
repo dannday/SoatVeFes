@@ -3,7 +3,7 @@
     public class TinTuc
     {
         
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Ten { get; set; }
         public string HinhAnh { get; set; }
         public string NoiDung { get; set; }

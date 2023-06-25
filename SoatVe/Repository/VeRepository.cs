@@ -3,6 +3,7 @@ using SoatVe.Models.DTO;
 using SoatVe.Models;
 using Microsoft.EntityFrameworkCore;
 using SoatVe.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace SoatVe.Repository
 {
@@ -19,12 +20,23 @@ namespace SoatVe.Repository
         {
             return await _dbContext.Ves.Select(x => new VeDto()
             {
-                Id = x.Id,
-                NgayDien= x.NgayDien,
-                QRCode= x.QRCode,
+                //Id = x.Id,
+                //NgayDien = x.NgayDien,
+                //QRCode = x.QRCode,
             }).ToListAsync();
         }
 
+        //public async Task<IEnumerable<Ve> GetAll()
+        //{
+        //    return await _dbContext.Ves.Select(x => new Ve()
+        //    {
+        //        //Id = x.Id,
+        //        //NgayDien= x.NgayDien,
+        //        //QRCode= x.QRCode,
+        //    }).ToListAsync();
+        //}
+
+       
 
         public async Task<Ve> Create(Ve ve)
         {
@@ -52,12 +64,12 @@ namespace SoatVe.Repository
             return ve;
         }
 
-        public async Task<Ve> GetById(Guid id)
+        public async Task<Ve> GetById(int id)
         {
             return await _dbContext.Ves.FindAsync(id);
         }
 
-       
+        
     }
 }
 

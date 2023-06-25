@@ -24,9 +24,11 @@ namespace SoatVe.Migrations
 
             modelBuilder.Entity("SoatVe.Models.ChuongTrinh", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DiaDiem")
                         .IsRequired()
@@ -54,9 +56,11 @@ namespace SoatVe.Migrations
 
             modelBuilder.Entity("SoatVe.Models.DiaDiem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("HinhAnh")
                         .IsRequired()
@@ -75,11 +79,13 @@ namespace SoatVe.Migrations
                     b.ToTable("DiaDiems");
                 });
 
-            modelBuilder.Entity("SoatVe.Models.Menu", b =>
+            modelBuilder.Entity("SoatVe.Models.ThongTin", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -87,14 +93,16 @@ namespace SoatVe.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menus");
+                    b.ToTable("ThongTins");
                 });
 
             modelBuilder.Entity("SoatVe.Models.TinTuc", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("HinhAnh")
                         .IsRequired()
@@ -118,9 +126,11 @@ namespace SoatVe.Migrations
 
             modelBuilder.Entity("SoatVe.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -137,9 +147,11 @@ namespace SoatVe.Migrations
 
             modelBuilder.Entity("SoatVe.Models.Ve", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("GiaVe")
                         .IsRequired()

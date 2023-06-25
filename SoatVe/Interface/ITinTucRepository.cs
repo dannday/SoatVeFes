@@ -9,6 +9,6 @@ namespace SoatVe.Interface
         Task<TinTuc> Create(TinTuc tintuc);
         Task<TinTuc> Update(TinTuc tintuc);
         Task<TinTuc> Delete(TinTuc tintuc);
-        Task<TinTuc> GetById(Guid id);
+        Task<TinTuc> GetById(int id);
     }
 }

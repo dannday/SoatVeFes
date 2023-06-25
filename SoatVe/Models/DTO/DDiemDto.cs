@@ -2,7 +2,7 @@
 {
     public class DDiemDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Ten { get; set; }
         public string DiaDiem { get; set; }
 

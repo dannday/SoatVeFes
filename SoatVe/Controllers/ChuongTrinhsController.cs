@@ -30,13 +30,13 @@ namespace SoatVe.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
-        //{
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
+        {
 
-        //    var ctrinhs = await _cTRepository.Create(ctrinh);
-        //    return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
-        //}
+            var ctrinhs = await _cTRepository.Create(ctrinh);
+            return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
+        }
 
         //[HttpGet]
         //public async Task<IActionResult> GetTieu_Diem()
@@ -50,30 +50,31 @@ namespace SoatVe.Controllers
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> AddChuongTrinh(AddChuongTrinhRequest addChuongTrinhRequest)
-        {
-            var ctrinhs = new ChuongTrinh()
-            {
-                Id = Guid.NewGuid(),
-                Ten = addChuongTrinhRequest.Ten,
-                DiaDiem = addChuongTrinhRequest.DiaDiem,
-                HinhAnh = addChuongTrinhRequest.HinhAnh,
-                MoTa = addChuongTrinhRequest.MoTa,
-                type_progame = addChuongTrinhRequest.type_progame,
+        //[HttpPost]
+        //public async Task<IActionResult> AddChuongTrinh(AddChuongTrinhRequest addChuongTrinhRequest)
+        //{
+        //    var ctrinhs = new ChuongTrinh()
+        //    {
+        //       // Id = int.Newint(),
+        //       Id = addChuongTrinhRequest.Id,
+        //        Ten = addChuongTrinhRequest.Ten,
+        //        DiaDiem = addChuongTrinhRequest.DiaDiem,
+        //        HinhAnh = addChuongTrinhRequest.HinhAnh,
+        //        MoTa = addChuongTrinhRequest.MoTa,
+        //        type_progame = addChuongTrinhRequest.type_progame,
 
-            };
+        //    };
 
-            await _cTRepository.Create(ctrinhs);
+        //    await _cTRepository.Create(ctrinhs);
 
-            return Ok(ctrinhs);
-        }
+        //    return Ok(ctrinhs);
+        //}
 
 
 
         [HttpPut]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateChuongTrinhRequest([FromRoute] Guid id, UpdateChuongTrinhRequest updateChuongTrinhRequest)
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateChuongTrinhRequest([FromRoute] int id, UpdateChuongTrinhRequest updateChuongTrinhRequest)
         {
             var ctrinh = await _cTRepository.GetById(id);
             if (ctrinh != null)
@@ -98,7 +99,7 @@ namespace SoatVe.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var ctrinhs = await _cTRepository.GetById(id);
 

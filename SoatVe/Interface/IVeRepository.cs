@@ -6,9 +6,12 @@ namespace SoatVe.Interface
     public interface IVeRepository
     {
         Task<IEnumerable<VeDto>> GetVes();
+
+     //   Task<IEnumerable<Ve>> GetAll();
+
         Task<Ve> Create(Ve ve);
         Task<Ve> Update(Ve ve);
         Task<Ve> Delete(Ve ve);
-        Task<Ve> GetById(Guid id);
+        Task<Ve> GetById(int id);
     }
 }

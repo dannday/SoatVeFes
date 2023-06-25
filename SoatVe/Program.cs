@@ -18,7 +18,7 @@ builder.Services.AddDbContext<SoatVeDbContext>(options =>
 
 builder.Services.AddTransient<ICTRepository,CTRepository>();
 builder.Services.AddTransient<IVeRepository, VeRepository>();
-builder.Services.AddTransient<IMenuRepository, MenuRepository>();
+builder.Services.AddTransient<IThongTinRepository, ThongTinRepository>();
 builder.Services.AddTransient<ITinTucRepository, TinTucRepository>();
 builder.Services.AddTransient<IDiaDiemRepository, DiaDiemRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();

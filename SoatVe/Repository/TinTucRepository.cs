@@ -38,7 +38,7 @@ namespace SoatVe.Repository
 
         //    //var tintuc = new TinTuc()
         //    //{
-        //    //    Id = Guid.NewGuid(),
+        //    //    Id = int.Newint(),
         //    //    Ten = addTinTucRequest.Ten,
         //    //    DiaDiem = addTinTucRequest.DiaDiem,
         //    //    HinhAnh = addTinTucRequest.HinhAnh,
@@ -77,7 +77,7 @@ namespace SoatVe.Repository
             return tintuc;
         }
 
-        public async Task<TinTuc> GetById(Guid id)
+        public async Task<TinTuc> GetById(int id)
         {
             return await _dbContext.TinTucs.FindAsync(id);
         }

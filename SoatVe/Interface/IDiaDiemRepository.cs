@@ -9,6 +9,6 @@ namespace SoatVe.Interface
         Task<DiaDiem> Create(DiaDiem ddiem);
         Task<DiaDiem> Update(DiaDiem ddiem);
         Task<DiaDiem> Delete(DiaDiem ddiem);
-        Task<DiaDiem> GetById(Guid id);
+        Task<DiaDiem> GetById(int id);
     }
 }

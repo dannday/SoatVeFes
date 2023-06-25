@@ -20,13 +20,14 @@ namespace SoatVe.Repository
         {
             return await _dbContext.ChuongTrinhs.Select(x => new CTDto()
             {
-                Id =x.Id,
+                Id = x.Id,
                 Ten = x.Ten,
                 DiaDiem = x.DiaDiem,
                 type_progame = x.type_progame,
             }).ToListAsync();
         }
 
+         
 
 
         //public async Task<ChuongTrinh> GetTieu_Diem(int type)
@@ -39,7 +40,7 @@ namespace SoatVe.Repository
 
         //    //var ctrinh = new ChuongTrinh()
         //    //{
-        //    //    Id = Guid.NewGuid(),
+        //    //    Id = int.Newint(),
         //    //    Ten = addChuongTrinhRequest.Ten,
         //    //    DiaDiem = addChuongTrinhRequest.DiaDiem,
         //    //    HinhAnh = addChuongTrinhRequest.HinhAnh,
@@ -78,7 +79,7 @@ namespace SoatVe.Repository
             return ctrinh;
         }
 
-        public async Task<ChuongTrinh> GetById(Guid id)
+        public async Task<ChuongTrinh> GetById(int id)
         {
             return await _dbContext.ChuongTrinhs.FindAsync(id);
         }

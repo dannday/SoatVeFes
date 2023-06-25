@@ -7,11 +7,11 @@ namespace SoatVe.Controllers
     
         [Route("api/[controller]")]
         [ApiController]
-        public class MenusController : ControllerBase
+        public class ThongTinsController : ControllerBase
         {
-            public readonly IMenuRepository _menuRepository;
+            public readonly IThongTinRepository _menuRepository;
 
-            public MenusController(IMenuRepository menuRepository)
+            public ThongTinsController(IThongTinRepository menuRepository)
             {
             _menuRepository = menuRepository;
             }
@@ -22,13 +22,13 @@ namespace SoatVe.Controllers
             [HttpGet]
             public async Task<IActionResult> GetAll()
             {
-                var menus = await _menuRepository.GetMenus();
+                var menus = await _menuRepository.GetThongTins();
                 return Ok(menus);
             }
 
 
             //[HttpPost]
-            //public async Task<IActionResult> Create(Models.Menu menu)
+            //public async Task<IActionResult> Create(Models.ThongTin menu)
             //{
 
             //    var menus = await _menuRepository.Create(menu);
@@ -48,16 +48,16 @@ namespace SoatVe.Controllers
 
 
             [HttpPost]
-            public async Task<IActionResult> AddMenu(AddMenuRequest addMenuRequest)
+            public async Task<IActionResult> AddThongTin(AddThongTinRequest addThongTinRequest)
             {
-                var menus = new Menu()
+                var menus = new ThongTin()
                 {
-                    //Id = Guid.NewGuid(),
-                    //Ten = addMenuRequest.Ten,
-                    //DiaDiem = addMenuRequest.DiaDiem,
-                    //HinhAnh = addMenuRequest.HinhAnh,
-                    //MoTa = addMenuRequest.MoTa,
-                    //type_progame = addMenuRequest.type_progame,
+                    //Id = int.Newint(),
+                    //Ten = addThongTinRequest.Ten,
+                    //DiaDiem = addThongTinRequest.DiaDiem,
+                    //HinhAnh = addThongTinRequest.HinhAnh,
+                    //MoTa = addThongTinRequest.MoTa,
+                    //type_progame = addThongTinRequest.type_progame,
 
                 };
 
@@ -69,16 +69,16 @@ namespace SoatVe.Controllers
 
 
             [HttpPut]
-            [Route("{id:guid}")]
-            public async Task<IActionResult> UpdateMenuRequest([FromRoute] Guid id, UpdateMenuRequest updateMenuRequest)
+            [Route("{id:int}")]
+            public async Task<IActionResult> UpdateThongTinRequest([FromRoute] int id, UpdateThongTinRequest updateThongTinRequest)
             {
                 var menu = await _menuRepository.GetById(id);
                 if (menu != null)
                 {
-                    //menu.Ten = updateMenuRequest.Ten;
-                    //menu.DiaDiem = updateMenuRequest.DiaDiem;
-                    //menu.HinhAnh = updateMenuRequest.HinhAnh;
-                    //menu.MoTa = updateMenuRequest.MoTa;
+                    //menu.Ten = updateThongTinRequest.Ten;
+                    //menu.DiaDiem = updateThongTinRequest.DiaDiem;
+                    //menu.HinhAnh = updateThongTinRequest.HinhAnh;
+                    //menu.MoTa = updateThongTinRequest.MoTa;
 
                     await _menuRepository.Update(menu);
 
@@ -95,7 +95,7 @@ namespace SoatVe.Controllers
 
             [HttpGet]
             [Route("{id}")]
-            public async Task<IActionResult> GetById([FromRoute] Guid id)
+            public async Task<IActionResult> GetById([FromRoute] int id)
             {
                 var menus = await _menuRepository.GetById(id);
 

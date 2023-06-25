@@ -9,7 +9,7 @@ namespace SoatVe.Interface
         Task<User> Create(User user);
         Task<User> Update(User user);
         Task<User> Delete(User user);
-        Task<User> GetById(Guid id);
+        Task<User> GetById(int id);
 
         //Task<User> GetTieu_Diem();
 

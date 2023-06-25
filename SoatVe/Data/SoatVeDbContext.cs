@@ -13,7 +13,7 @@ namespace SoatVe.Data
 
         public DbSet<TinTuc> TinTucs { get; set; }
         public DbSet<DiaDiem> DiaDiems { get; set; }
-        public DbSet<Menu> Menus { get; set; }
+        public DbSet<ThongTin> ThongTins { get; set; }
         public DbSet<Ve> Ves { get; set; }
         public DbSet<User> Users { get; set; }
 
