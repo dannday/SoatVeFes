@@ -1,5 +1,8 @@
-﻿namespace SoatVe.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SoatVe.Models
 {
+   
     public class ThongTin
     {
         public int Id { get; set; }

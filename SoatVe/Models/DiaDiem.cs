@@ -1,5 +1,8 @@
-﻿    namespace SoatVe.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SoatVe.Models
 {
+ 
     public class DiaDiem
     {
         public int Id { get; set; }
@@ -11,7 +14,7 @@
 
     public class MNDiaDiem
     {
-        public int Id { get; set; }
+        public int DDId { get; set; }
         public string Ten { get; set; }
         public string HinhAnh { get; set; }
 

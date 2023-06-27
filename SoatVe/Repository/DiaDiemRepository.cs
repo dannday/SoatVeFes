@@ -29,6 +29,23 @@ namespace SoatVe.Repository
 
 
 
+        public async Task<IEnumerable<DiaDiem>> Search(string ten)
+        {
+            IQueryable<DiaDiem> query = _dbContext.DiaDiems;
+
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.Ten == ten);
+            }
+
+            
+
+
+            return await query.ToListAsync();
+        }
+
+
+
         public async Task<DiaDiem> Create(DiaDiem ddiem)
         {
             await _dbContext.DiaDiems.AddAsync(ddiem);

@@ -3,9 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SoatVe.Models
 {
+    
     public class ChuongTrinh
     {
-       
+        
         public int Id { get; set; }
         public string Ten { get; set; }
         public string DiaDiem { get; set; }
@@ -15,11 +16,13 @@ namespace SoatVe.Models
 
         public int type_progame { get; set; }
 
+       
+
     }
 
     public class ChuongTrinhDetails
     {
-        public Guid Id { get; set; }
+        public int CTId { get; set; }
         public string Ten { get; set; }
         public string DiaDiem { get; set; }
         public string HinhAnh { get; set; }

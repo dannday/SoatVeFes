@@ -1,7 +1,11 @@
-﻿namespace SoatVe.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SoatVe.Models
 {
+   
     public class TinTuc
     {
+
         
         public int Id { get; set; }
         public string Ten { get; set; }

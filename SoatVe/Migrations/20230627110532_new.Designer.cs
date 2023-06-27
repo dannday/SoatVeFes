@@ -12,8 +12,8 @@ using SoatVe.Data;
 namespace SoatVe.Migrations
 {
     [DbContext(typeof(SoatVeDbContext))]
-    [Migration("20230625172718_int")]
-    partial class @int
+    [Migration("20230627110532_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

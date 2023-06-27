@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SoatVe.Data;
 using SoatVe.Interface;
 using SoatVe.Models;
@@ -24,10 +25,17 @@ namespace SoatVe.Repository
                 Ten = x.Ten,
                 DiaDiem = x.DiaDiem,
                 type_progame = x.type_progame,
-            }).ToListAsync();
+                
+
+                }).ToListAsync();
         }
 
-         
+
+        //public async Task<IEnumerable<CTDto>> GetChuongTrinhs()
+        //{
+        //    return await _dbContext.ChuongTrinhs.ToListAsync();
+        //}
+
 
 
         //public async Task<ChuongTrinh> GetTieu_Diem(int type)
@@ -53,6 +61,27 @@ namespace SoatVe.Repository
 
         //}
 
+
+        public async Task<IEnumerable<ChuongTrinh>> Search (string? ten, string? ddiem)
+        {
+            IQueryable<ChuongTrinh> query = _dbContext.ChuongTrinhs;
+
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.Ten == ten);
+            }
+
+            if (!string.IsNullOrEmpty(ddiem))
+            {
+                query = query.Where(x => x.DiaDiem == ddiem);
+            }
+
+
+            return await query.ToListAsync();
+        }
+
+
+
         public async Task<ChuongTrinh> Create(ChuongTrinh ctrinh)
         {
             await _dbContext.ChuongTrinhs.AddAsync(ctrinh);
@@ -69,6 +98,8 @@ namespace SoatVe.Repository
         }
 
 
+
+       
 
 
 

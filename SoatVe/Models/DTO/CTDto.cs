@@ -10,7 +10,7 @@ namespace SoatVe.Models.DTO
 
         public int type_progame { get; set; }
 
-
+      
     }
 
 

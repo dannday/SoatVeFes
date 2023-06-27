@@ -32,8 +32,8 @@ namespace SoatVe.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var ctrinhs = await _veRepository.GetVes();
-            return Ok(ctrinhs);
+            var ves = await _veRepository.GetVes();
+            return Ok(ves);
         }
 
 
@@ -88,27 +88,23 @@ namespace SoatVe.Controllers
         }
 
 
-        //[HttpPut]
-        //[Route("{id}")]
-
-        //public async Task<IActionResult> Update(Guid id, Models.Ve ve)
-        //{
-        //    if (!ModelState.IsValid) 
-        //        return BadRequest(ModelState);
-
-
-        //    var CTFromDb = await _cTRepository.GetById(id);
-
-        //    if (CTFromDb == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var ve = await _veRepository.GetById(id);
+            if (ve != null)
+            {
 
 
-        //    var ves = await _cTRepository.Update(ve);
-        //    return Ok(ves);
-        //}
 
+                await _veRepository.Delete(ve);
+
+                return Ok(ve);
+            }
+
+            return NotFound();
+        }
 
         [HttpGet]
         [Route("{id}")]

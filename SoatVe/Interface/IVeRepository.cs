@@ -7,7 +7,7 @@ namespace SoatVe.Interface
     {
         Task<IEnumerable<VeDto>> GetVes();
 
-     //   Task<IEnumerable<Ve>> GetAll();
+        Task<IEnumerable<Ve>> Search(string ten);
 
         Task<Ve> Create(Ve ve);
         Task<Ve> Update(Ve ve);

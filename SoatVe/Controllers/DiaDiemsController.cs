@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SoatVe.Data;
 using SoatVe.Interface;
 using SoatVe.Models;
+using SoatVe.Repository;
 
 namespace SoatVe.Controllers
 {
@@ -10,11 +11,11 @@ namespace SoatVe.Controllers
     [ApiController]
     public class DiaDiemsController : ControllerBase
     {
-        public readonly IDiaDiemRepository _cTRepository;
+        public readonly IDiaDiemRepository _ddRepository;
 
         public DiaDiemsController(IDiaDiemRepository ctRepository)
         {
-            _cTRepository = ctRepository;
+            _ddRepository = ctRepository;
         }
 
 
@@ -23,7 +24,7 @@ namespace SoatVe.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var ddiems = await _cTRepository.GetDiaDiems();
+            var ddiems = await _ddRepository.GetDiaDiems();
             return Ok(ddiems);
         }
 
@@ -32,49 +33,42 @@ namespace SoatVe.Controllers
         public async Task<IActionResult> Create(Models.DiaDiem ddiem)
         {
 
-            var ddiems = await _cTRepository.Create(ddiem);
+            var ddiems = await _ddRepository.Create(ddiem);
             return CreatedAtAction(nameof(GetById), new { id = ddiem.Id }, ddiems);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetTieu_Diem()
-        //{
-        //    var ddiems = await _cTRepository.GetTieu_Diem();
-        //    return Ok(ddiems);
-        //}
 
 
 
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<DiaDiem>>> Search(string ten)
+        {
+            try
+            {
+                var ddiems = await _ddRepository.Search(ten);
 
+                if (ddiems.Any())
+                {
+                    return Ok(ddiems);
+                }
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Loi");
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddDiaDiem(AddDiaDiemRequest addDiaDiemRequest)
-        //{
-        //    var ddiems = new DiaDiem()
-        //    {
-        //       // Id = Guid.NewGuid(),
-        //       Id = addDiaDiemRequest.Id,
-        //        Ten = addDiaDiemRequest.Ten,
-        //        DiaDiem = addDiaDiemRequest.DiaDiem,
-        //        HinhAnh = addDiaDiemRequest.HinhAnh,
-        //        MoTa = addDiaDiemRequest.MoTa,
-        //        type_progame = addDiaDiemRequest.type_progame,
+            }
+        }
 
-        //    };
-
-        //    await _cTRepository.Create(ddiems);
-
-        //    return Ok(ddiems);
-        //}
-
-
+       
 
         [HttpPut]
-        [Route("{id:guid}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> UpdateDiaDiemRequest([FromRoute] int id, UpdateDiaDiemRequest updateDiaDiemRequest)
         {
-            var ddiem = await _cTRepository.GetById(id);
+            var ddiem = await _ddRepository.GetById(id);
             if (ddiem != null)
             {
                 //ddiem.Ten = updateDiaDiemRequest.Ten;
@@ -82,7 +76,7 @@ namespace SoatVe.Controllers
                 //ddiem.HinhAnh = updateDiaDiemRequest.HinhAnh;
                 //ddiem.MoTa = updateDiaDiemRequest.MoTa;
 
-                await _cTRepository.Update(ddiem);
+                await _ddRepository.Update(ddiem);
 
                 return Ok(ddiem);
             }
@@ -94,12 +88,11 @@ namespace SoatVe.Controllers
 
 
 
-
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var ddiems = await _cTRepository.GetById(id);
+            var ddiems = await _ddRepository.GetById(id);
 
             if (ddiems == null)
             {
@@ -108,6 +101,27 @@ namespace SoatVe.Controllers
 
             return Ok(ddiems);
         }
+
+
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var ddiem = await _ddRepository.GetById(id);
+            if (ddiem != null)
+            {
+
+
+
+                await _ddRepository.Delete(ddiem);
+
+                return Ok(ddiem);
+            }
+
+            return NotFound();
+        }
+
 
     }
 }

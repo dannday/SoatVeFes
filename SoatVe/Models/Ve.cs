@@ -1,5 +1,8 @@
-﻿namespace SoatVe.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SoatVe.Models
 {
+  
     public class Ve
     {
         public int Id { get; set; }
@@ -9,7 +12,8 @@
         public string GiaVe { get; set; }
         public string QRCode { get; set; }
 
-        //public virtual ChuongTrinh ChuongTrinh { get; set; }
+
+       
     }
 
 

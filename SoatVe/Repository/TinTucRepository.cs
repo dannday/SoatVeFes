@@ -28,6 +28,24 @@ namespace SoatVe.Repository
 
 
 
+
+        public async Task<IEnumerable<TinTuc>> Search(string ten)
+        {
+            IQueryable<TinTuc> query = _dbContext.TinTucs;
+
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.Ten == ten);
+            }
+
+
+
+
+            return await query.ToListAsync();
+        }
+
+
+
         //public async Task<TinTuc> GetTieu_Diem(int type)
         //{
         //    return await _dbContext.TinTucs.FindAsync(1);

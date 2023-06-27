@@ -28,28 +28,21 @@ namespace SoatVe.Repository
 
 
 
-        //public async Task<ThongTin> GetTieu_Diem(int type)
-        //{
-        //    return await _dbContext.ThongTins.FindAsync(1);
-        //}
+        public async Task<IEnumerable<ThongTin>> Search(string ten)
+        {
+            IQueryable<ThongTin> query = _dbContext.ThongTins;
 
-        //public async Task<ThongTin> AddThongTin(AddThongTinRequest addThongTinRequest, ThongTin menu)
-        //{
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.Ten == ten);
+            }
 
-        //    //var menu = new ThongTin()
-        //    //{
-        //    //    Id = int.Newint(),
-        //    //    Ten = addThongTinRequest.Ten,
-        //    //    DiaDiem = addThongTinRequest.DiaDiem,
-        //    //    HinhAnh = addThongTinRequest.HinhAnh,
-        //    //    MoTa = addThongTinRequest.MoTa,
-        //    //};
 
-        //    await _dbContext.ThongTins.AddAsync(menu);
-        //    await _dbContext.SaveChangesAsync();
-        //    return menu;
 
-        //}
+
+            return await query.ToListAsync();
+        }
+
 
         public async Task<ThongTin> Create(ThongTin menu)
         {

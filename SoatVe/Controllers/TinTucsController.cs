@@ -1,102 +1,133 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿///using DurableTask.Core.Common;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Data;
+using SoatVe.Interface;
 using SoatVe.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
 
 namespace SoatVe.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class TinTucsController : Controller
+    [ApiController]
+    public class TinTucsController : ControllerBase
     {
-        private readonly SoatVeDbContext dbContext;
+        public readonly ITinTucRepository _tTRepository;
 
-        public TinTucsController(SoatVeDbContext dbContext)
+        public TinTucsController(ITinTucRepository tTRepository)
         {
-            this.dbContext = dbContext;
+            _tTRepository = tTRepository;
         }
 
 
+        //hi
+
         [HttpGet]
-        public async Task<IActionResult> GetTinTucs()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await dbContext.TinTucs.ToListAsync());
+            var ttucs = await _tTRepository.GetTinTucs();
+            return Ok(ttucs);
         }
 
-        [HttpGet]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> GetTinTuc([FromRoute] Guid id)
-        {
-            var tintuc = await dbContext.TinTucs.FindAsync(id);
 
-            if (tintuc == null)
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<TinTuc>>> Search(string ten)
+        {
+            try
             {
+                var ttucs = await _tTRepository.Search(ten);
+
+                if (ttucs.Any())
+                {
+                    return Ok(ttucs);
+                }
                 return NotFound();
             }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Loi");
 
-            return Ok(tintuc);
-
+            }
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddTinTuc(AddTinTucRequest addTinTucRequest)
-        //{
-        //    var tintuc = new TinTuc()
-        //    {
-        //        Id = addTinTucRequest.ToString(Int32),
-        //        Ten = addTinTucRequest.Ten,
-        //        HinhAnh = addTinTucRequest.HinhAnh,
-        //        NoiDung = addTinTucRequest.NoiDung,
-        //        NgayDang = addTinTucRequest.NgayDang
-        //    };
 
-        //    await dbContext.TinTucs.AddAsync(tintuc);
-        //    await dbContext.SaveChangesAsync();
 
-        //    return Ok(tintuc);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.TinTuc ttuc)
+        {
+
+            var ttucs = await _tTRepository.Create(ttuc);
+            return CreatedAtAction(nameof(GetById), new { id = ttuc.Id }, ttucs);
+        }
+
+
+
 
 
         [HttpPut]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateTinTuc([FromRoute] Guid id, UpdateTinTucRequest updateTinTucRequest)
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateTinTucRequest([FromRoute] int id, UpdateTinTucRequest updateTinTucRequest)
         {
-            var tintuc = await dbContext.TinTucs.FindAsync(id);
-            if (tintuc != null)
+            var ttuc = await _tTRepository.GetById(id);
+            if (ttuc != null)
             {
-                tintuc.Ten = updateTinTucRequest.Ten;
-                tintuc.HinhAnh = updateTinTucRequest.HinhAnh;
-                tintuc.NoiDung = updateTinTucRequest.NoiDung;
-                tintuc.NgayDang = updateTinTucRequest.NgayDang;
+                //ttuc.Ten = updateTinTucRequest.Ten;
+                //ttuc.DiaDiem = updateTinTucRequest.DiaDiem;
+                //ttuc.HinhAnh = updateTinTucRequest.HinhAnh;
+                //ttuc.MoTa = updateTinTucRequest.MoTa;
 
-                await dbContext.SaveChangesAsync();
+                await _tTRepository.Update(ttuc);
 
-                return Ok(tintuc);
+                return Ok(ttuc);
             }
 
             return NotFound();
         }
+
+
+
+
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var ttucs = await _tTRepository.GetById(id);
+
+            if (ttucs == null)
+            {
+                return NotFound($"{id} is not found");
+            }
+
+            return Ok(ttucs);
+        }
+
 
 
         [HttpDelete]
-        [Route("{id:guid}")]
-        public async Task<IActionResult> DeleteTinTuc([FromRoute] Guid id)
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var tintuc = await dbContext.TinTucs.FindAsync(id);
-
-            if (tintuc != null)
+            var ttuc = await _tTRepository.GetById(id);
+            if (ttuc != null)
             {
-                dbContext.Remove(tintuc);
-                await dbContext.SaveChangesAsync();
-                return Ok(tintuc);
+
+
+
+                await _tTRepository.Delete(ttuc);
+
+                return Ok(ttuc);
             }
 
             return NotFound();
-
         }
-
     }
+
+
 }
+

@@ -1,111 +1,133 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿///using DurableTask.Core.Common;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SoatVe.Interface;
 using SoatVe.Models;
+using System;
 
 namespace SoatVe.Controllers
 {
-    
-        [Route("api/[controller]")]
-        [ApiController]
-        public class ThongTinsController : ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ThongTinsController : ControllerBase
+    {
+        public readonly IThongTinRepository _tTRepository;
+
+        public ThongTinsController(IThongTinRepository ctRepository)
         {
-            public readonly IThongTinRepository _menuRepository;
+            _tTRepository = ctRepository;
+        }
 
-            public ThongTinsController(IThongTinRepository menuRepository)
+
+        //hi
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var ttins = await _tTRepository.GetThongTins();
+            return Ok(ttins);
+        }
+
+
+
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<ThongTin>>> Search(string ten)
+        {
+            try
             {
-            _menuRepository = menuRepository;
-            }
+                var ttins = await _tTRepository.Search(ten);
 
-
-            //hi
-
-            [HttpGet]
-            public async Task<IActionResult> GetAll()
-            {
-                var menus = await _menuRepository.GetThongTins();
-                return Ok(menus);
-            }
-
-
-            //[HttpPost]
-            //public async Task<IActionResult> Create(Models.ThongTin menu)
-            //{
-
-            //    var menus = await _menuRepository.Create(menu);
-            //    return CreatedAtAction(nameof(GetById), new { id = menu.Id }, menus);
-            //}
-
-            //[HttpGet]
-            //public async Task<IActionResult> GetTieu_Diem()
-            //{
-            //    var menus = await _menuRepository.GetTieu_Diem();
-            //    return Ok(menus);
-            //}
-
-
-
-
-
-
-            [HttpPost]
-            public async Task<IActionResult> AddThongTin(AddThongTinRequest addThongTinRequest)
-            {
-                var menus = new ThongTin()
+                if (ttins.Any())
                 {
-                    //Id = int.Newint(),
-                    //Ten = addThongTinRequest.Ten,
-                    //DiaDiem = addThongTinRequest.DiaDiem,
-                    //HinhAnh = addThongTinRequest.HinhAnh,
-                    //MoTa = addThongTinRequest.MoTa,
-                    //type_progame = addThongTinRequest.type_progame,
-
-                };
-
-                await _menuRepository.Create(menus);
-
-                return Ok(menus);
-            }
-
-
-
-            [HttpPut]
-            [Route("{id:int}")]
-            public async Task<IActionResult> UpdateThongTinRequest([FromRoute] int id, UpdateThongTinRequest updateThongTinRequest)
-            {
-                var menu = await _menuRepository.GetById(id);
-                if (menu != null)
-                {
-                    //menu.Ten = updateThongTinRequest.Ten;
-                    //menu.DiaDiem = updateThongTinRequest.DiaDiem;
-                    //menu.HinhAnh = updateThongTinRequest.HinhAnh;
-                    //menu.MoTa = updateThongTinRequest.MoTa;
-
-                    await _menuRepository.Update(menu);
-
-                    return Ok(menu);
+                    return Ok(ttins);
                 }
-
                 return NotFound();
             }
-
-
-
-
-
-
-            [HttpGet]
-            [Route("{id}")]
-            public async Task<IActionResult> GetById([FromRoute] int id)
+            catch (Exception)
             {
-                var menus = await _menuRepository.GetById(id);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Loi");
 
-                if (menus == null)
-                {
-                    return NotFound($"{id} is not found");
-                }
+            }
+        }
 
-                return Ok(menus);
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.ThongTin ttin)
+        {
+
+            var ttins = await _tTRepository.Create(ttin);
+            return CreatedAtAction(nameof(GetById), new { id = ttin.Id }, ttins);
+        }
+
+
+
+
+
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> UpdateThongTinRequest([FromRoute] int id, UpdateThongTinRequest updateThongTinRequest)
+        {
+            var ttin = await _tTRepository.GetById(id);
+            if (ttin != null)
+            {
+                //ttin.Ten = updateThongTinRequest.Ten;
+                //ttin.DiaDiem = updateThongTinRequest.DiaDiem;
+                //ttin.HinhAnh = updateThongTinRequest.HinhAnh;
+                //ttin.MoTa = updateThongTinRequest.MoTa;
+
+                await _tTRepository.Update(ttin);
+
+                return Ok(ttin);
             }
 
+            return NotFound();
+        }
+
+
+
+
+
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
+        {
+            var ttins = await _tTRepository.GetById(id);
+
+            if (ttins == null)
+            {
+                return NotFound($"{id} is not found");
+            }
+
+            return Ok(ttins);
+        }
+
+
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var ttin = await _tTRepository.GetById(id);
+            if (ttin != null)
+            {
+
+
+
+                await _tTRepository.Delete(ttin);
+
+                return Ok(ttin);
+            }
+
+            return NotFound();
         }
     }
+
+
+}
+

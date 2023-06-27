@@ -36,7 +36,22 @@ namespace SoatVe.Repository
         //    }).ToListAsync();
         //}
 
-       
+
+        public async Task<IEnumerable<Ve>> Search(string ten)
+        {
+            IQueryable<Ve> query = _dbContext.Ves;
+
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.GiaVe == ten);
+            }
+
+
+
+
+            return await query.ToListAsync();
+        }
+
 
         public async Task<Ve> Create(Ve ve)
         {

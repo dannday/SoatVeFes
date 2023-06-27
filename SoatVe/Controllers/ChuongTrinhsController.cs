@@ -30,6 +30,32 @@ namespace SoatVe.Controllers
         }
 
 
+        
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<ChuongTrinh>>> Search(string? ten, string? ctrinh)
+        {
+            try
+            {
+                var ctrinhs = await _cTRepository.Search(ten,ctrinh);
+
+                if (ctrinhs.Any())
+                {
+                    return Ok(ctrinhs);
+                }
+                return NotFound();
+            }
+            catch(Exception ) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Loi");
+            
+            }
+        }
+
+
+
+
         [HttpPost]
         public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
         {
@@ -38,37 +64,7 @@ namespace SoatVe.Controllers
             return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetTieu_Diem()
-        //{
-        //    var ctrinhs = await _cTRepository.GetTieu_Diem();
-        //    return Ok(ctrinhs);
-        //}
-
-
-
-
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddChuongTrinh(AddChuongTrinhRequest addChuongTrinhRequest)
-        //{
-        //    var ctrinhs = new ChuongTrinh()
-        //    {
-        //       // Id = int.Newint(),
-        //       Id = addChuongTrinhRequest.Id,
-        //        Ten = addChuongTrinhRequest.Ten,
-        //        DiaDiem = addChuongTrinhRequest.DiaDiem,
-        //        HinhAnh = addChuongTrinhRequest.HinhAnh,
-        //        MoTa = addChuongTrinhRequest.MoTa,
-        //        type_progame = addChuongTrinhRequest.type_progame,
-
-        //    };
-
-        //    await _cTRepository.Create(ctrinhs);
-
-        //    return Ok(ctrinhs);
-        //}
+       
 
 
 
@@ -111,5 +107,27 @@ namespace SoatVe.Controllers
             return Ok(ctrinhs);
         }
 
+
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var ctrinh = await _cTRepository.GetById(id);
+            if (ctrinh != null)
+            {
+
+
+
+                await _cTRepository.Delete(ctrinh);
+
+                return Ok(ctrinh);
+            }
+
+            return NotFound();
+        }
     }
+
+
 }
+

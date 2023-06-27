@@ -29,6 +29,23 @@ namespace SoatVe.Repository
 
 
 
+
+        public async Task<IEnumerable<User>> Search(string ten)
+        {
+            IQueryable<User> query = _dbContext.Users;
+
+            if (!string.IsNullOrEmpty(ten))
+            {
+                query = query.Where(x => x.Sdt == ten);
+            }
+
+
+
+
+            return await query.ToListAsync();
+        }
+
+
         //public async Task<User> GetTieu_Diem(int type)
         //{
         //    return await _dbContext.Users.FindAsync(1);

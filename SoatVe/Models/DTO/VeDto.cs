@@ -7,6 +7,6 @@
 
         public string QRCode { get; set; }
 
-        public virtual ChuongTrinh ChuongTrinh { get; set; }
+        
     }
 }
