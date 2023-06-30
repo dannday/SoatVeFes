@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
 using SoatVe.Models;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 using System;
 
 namespace SoatVe.Controllers
@@ -32,53 +33,31 @@ namespace SoatVe.Controllers
 
 
 
-        [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<ThongTin>>> Search(string ten)
-        {
-            try
-            {
-                var ttins = await _tTRepository.Search(ten);
-
-                if (ttins.Any())
-                {
-                    return Ok(ttins);
-                }
-                return NotFound();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Loi");
-
-            }
-        }
-
-
-
-
         [HttpPost]
-        public async Task<IActionResult> Create(Models.ThongTin ttin)
+        public async Task<AddThongTin> AddThongTin(ViewModel.AddThongTin add)
         {
+            var ttin = new ThongTin()
+            {
+                Ten=add.Ten,
+                NoiDung=add.NoiDung,
+            };
 
-            var ttins = await _tTRepository.Create(ttin);
-            return CreatedAtAction(nameof(GetById), new { id = ttin.Id }, ttins);
+            await _tTRepository.Create(ttin);
+
+            return add;
         }
-
-
 
 
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateThongTinRequest([FromRoute] int id, UpdateThongTinRequest updateThongTinRequest)
+        public async Task<IActionResult> UpdateThongTinRequest([FromRoute] int id, ViewModel.UpdateThongTin updateThongTinRequest)
         {
             var ttin = await _tTRepository.GetById(id);
             if (ttin != null)
             {
-                //ttin.Ten = updateThongTinRequest.Ten;
-                //ttin.DiaDiem = updateThongTinRequest.DiaDiem;
-                //ttin.HinhAnh = updateThongTinRequest.HinhAnh;
-                //ttin.MoTa = updateThongTinRequest.MoTa;
+                ttin.Ten = updateThongTinRequest.Ten;
+                ttin.NoiDung= updateThongTinRequest.NoiDung;
 
                 await _tTRepository.Update(ttin);
 

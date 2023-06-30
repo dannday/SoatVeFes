@@ -1,10 +1,10 @@
 ﻿using SoatVe.Data;
-using SoatVe.Interface;
-using SoatVe.Models.DTO;
+using SoatVe.Services;
 using SoatVe.Models;
 using Microsoft.EntityFrameworkCore;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Repository
+namespace SoatVe.Services
 {
     public class DiaDiemRepository : IDiaDiemRepository
     {
@@ -15,14 +15,12 @@ namespace SoatVe.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<DDiemDto>> GetDiaDiems()
+        public async Task<IEnumerable<DiaDiemVM>> GetDiaDiems()
         {
-            return await _dbContext.DiaDiems.Select(x => new DDiemDto()
+            return await _dbContext.DiaDiems.Select(x => new DiaDiemVM()
             {
-                //Id = x.Id,
-                //Ten = x.Ten,
-                //DiaDiem = x.DiaDiem,
-                //type_progame = x.type_progame,
+                Ten = x.Ten,
+                HinhAnh= x.HinhAnh,
             }).ToListAsync();
         }
 

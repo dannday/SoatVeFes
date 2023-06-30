@@ -1,9 +1,12 @@
 ﻿///using DurableTask.Core.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
+using Microsoft.IdentityModel.Tokens;
 using SoatVe.Models;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 using System;
 
 namespace SoatVe.Controllers
@@ -14,20 +17,59 @@ namespace SoatVe.Controllers
     {
         public readonly IUserRepository _userRepository;
 
-        public UsersController(IUserRepository ctRepository)
+        public UsersController(IUserRepository userRepository)
         {
-            _userRepository = ctRepository;
+            _userRepository = userRepository;
         }
+
+
+        //[HttpPost("authenticate")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
+        //{
+        //    if(!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var resultToken = await _userRepository.Authencate(request);
+
+        //    if (string.IsNullOrEmpty(resultToken))
+        //    {
+        //        return BadRequest("Khong ton tai");
+        //    }
+        //    return Ok(new { token = resultToken });
+        //}
+
+
+
+        //[HttpPost("register")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var result = await _userRepository.Register(request);
+
+        //    if (!result)
+        //    {
+        //        return BadRequest("Khong Thanh Cong");
+        //    }
+        //    return Ok();
+        //}
+
+
+
+
 
 
         //hi
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var ctrinhs = await _userRepository.GetUsers();
-            return Ok(ctrinhs);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    var ctrinhs = await _userRepository.GetUsers();
+        //    return Ok(ctrinhs);
+        //}
 
 
 
@@ -56,13 +98,13 @@ namespace SoatVe.Controllers
 
 
 
-        [HttpPost]
-        public async Task<IActionResult> Create(Models.User ctrinh)
-        {
+        //[HttpPost]
+        //public async Task<IActionResult> Create(Models.User ctrinh)
+        //{
 
-            var ctrinhs = await _userRepository.Create(ctrinh);
-            return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
-        }
+        //    var ctrinhs = await _userRepository.Create(ctrinh);
+        //    return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
+        //}
 
 
 
@@ -128,6 +170,7 @@ namespace SoatVe.Controllers
         }
     }
 
-
 }
+
+
 

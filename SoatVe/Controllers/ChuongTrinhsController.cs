@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
 using SoatVe.Models;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 using System;
+using System.Linq.Expressions;
 
 namespace SoatVe.Controllers
 {
@@ -30,14 +32,16 @@ namespace SoatVe.Controllers
         }
 
 
+
         
 
+
         [HttpGet("[action]")]
-        public async Task<ActionResult<IEnumerable<ChuongTrinh>>> Search(string? ten, string? ctrinh)
+        public async Task<ActionResult<IEnumerable<ChuongTrinh>>> Search(string? ten, string? ctrinh, int? type_progame)
         {
             try
             {
-                var ctrinhs = await _cTRepository.Search(ten,ctrinh);
+                var ctrinhs = await _cTRepository.Search(ten,ctrinh, type_progame);
 
                 if (ctrinhs.Any())
                 {
@@ -56,27 +60,40 @@ namespace SoatVe.Controllers
 
 
 
+
         [HttpPost]
-        public async Task<IActionResult> Create(Models.ChuongTrinh ctrinh)
+        public async Task<AddChuongTrinh> Add(ViewModel.AddChuongTrinh add)
         {
 
-            var ctrinhs = await _cTRepository.Create(ctrinh);
-            return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
+            var ctrinhs = new ChuongTrinh()
+            {
+                Ten = add.TenCT,
+                HinhAnh = add.HinhAnh,
+                MoTa = add.MoTa,
+                type_progame = add.type_progame,
+                DiaDiemId = add.DiaDiemId
+            };
+            await _cTRepository.Create(ctrinhs);
+
+            return add;
+
         }
 
-       
+
 
 
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateChuongTrinhRequest([FromRoute] int id, UpdateChuongTrinhRequest updateChuongTrinhRequest)
+        public async Task<IActionResult> UpdateChuongTrinhRequest([FromRoute] int id, ViewModel.UpdateChuongTrinh updateChuongTrinhRequest)
         {
+
+
             var ctrinh = await _cTRepository.GetById(id);
             if (ctrinh != null)
             {
-                ctrinh.Ten = updateChuongTrinhRequest.Ten;
-                ctrinh.DiaDiem = updateChuongTrinhRequest.DiaDiem;
+                ctrinh.Ten = updateChuongTrinhRequest.TenCT;
+
                 ctrinh.HinhAnh = updateChuongTrinhRequest.HinhAnh;
                 ctrinh.MoTa = updateChuongTrinhRequest.MoTa;
 
@@ -89,8 +106,27 @@ namespace SoatVe.Controllers
         }
 
 
-        
-       
+        //[HttpGet("{id}")]
+        //public IActionResult Detais(int id)
+        //{
+        //    try
+        //    {
+        //        var ctrinh = _cTRepository.Details(id);
+        //        if(ctrinh != null)
+        //        {
+        //            return Ok(ctrinh);
+        //        }
+        //        else{
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError,
+        //            "Loi");
+        //    }
+        //}
+
 
 
         [HttpGet]
@@ -99,7 +135,7 @@ namespace SoatVe.Controllers
         {
             var ctrinhs = await _cTRepository.GetById(id);
 
-            if(ctrinhs == null)
+            if (ctrinhs == null)
             {
                 return NotFound($"{id} is not found");
             }

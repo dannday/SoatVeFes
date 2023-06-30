@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
 using SoatVe.Models;
-using SoatVe.Repository;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 
 namespace SoatVe.Controllers
 {
@@ -20,64 +20,36 @@ namespace SoatVe.Controllers
 
 
 
-        //[HttpGet]
-        //public async Task<Ve> GetAll()
-        //{
-        //    return Ok(await _veRepository.GetAll.ToListAsync());
-        //}
-
-
-
-
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var ves = await _veRepository.GetVes();
-            return Ok(ves);
-        }
-
-
-
         [HttpPost]
-        public async Task<IActionResult> Create(Models.Ve ve)
+        public async Task<AddVe> AddVe(ViewModel.AddVe add)
         {
-            var ves = await _veRepository.Create(ve);
-            return CreatedAtAction(nameof(GetById), new { id = ve.Id }, ves);
+            var ves = new Ve()
+            {
+                NgayDien = add.NgayDien,
+                Soluong = add.Soluong,
+                GiaVe = add.GiaVe,
+                QRCode = add.QRCode,
+               
+
+            };
+
+            await _veRepository.Create(ves);
+
+            return add;
         }
-
-
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddVe(AddVeRequest addVeRequest)
-        //{
-        //    var ves = new Ve()
-        //    {
-        //      //  Id = Guid.NewGuid(),
-
-        //        NgayDien= addVeRequest.NgayDien,
-        //        Soluong = addVeRequest.Soluong,
-        //        GiaVe = addVeRequest.GiaVe,
-        //        QRCode= addVeRequest.QRCode,    
-        //    };
-
-        //    await _veRepository.Create(ves);
-
-        //    return Ok(ves);
-        //}
 
 
 
         [HttpPut]
         [Route("{id:guid}")]
-        public async Task<IActionResult> UpdateVeRequest([FromRoute] int id, UpdateVeRequest updateVeRequest)
+        public async Task<IActionResult> UpdateVeRequest([FromRoute] int id, UpdateVe update)
         {
             var ve = await _veRepository.GetById(id);
             if (ve != null)
             {
-                ve.NgayDien= updateVeRequest.NgayDien;
-                ve.Soluong= updateVeRequest.Soluong;
-                ve.GiaVe= updateVeRequest.GiaVe;
+                //ve.NgayDien= updateVeRequest.NgayDien;
+                //ve.Soluong= updateVeRequest.Soluong;
+                //ve.GiaVe= updateVeRequest.GiaVe;
 
                 await _veRepository.Update(ve);
 

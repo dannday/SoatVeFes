@@ -1,11 +1,11 @@
-﻿using SoatVe.Models.DTO;
-using SoatVe.Models;
+﻿using SoatVe.Models;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Interface
+namespace SoatVe.Services
 {
     public interface IThongTinRepository
     {
-        Task<IEnumerable<CTDto>> GetThongTins();
+        Task<IEnumerable<ThongTinVM>> GetThongTins();
 
         Task<IEnumerable<ThongTin>> Search(string ten);
         Task<ThongTin> Create(ThongTin menu);

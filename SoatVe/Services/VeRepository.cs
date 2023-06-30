@@ -1,11 +1,11 @@
 ﻿using SoatVe.Data;
-using SoatVe.Models.DTO;
 using SoatVe.Models;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
-using Microsoft.AspNetCore.Mvc;
 
-namespace SoatVe.Repository
+using Microsoft.AspNetCore.Mvc;
+using SoatVe.ViewModel;
+
+namespace SoatVe.Services
 {
     public class VeRepository : IVeRepository
     {
@@ -16,41 +16,7 @@ namespace SoatVe.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<VeDto>> GetVes()
-        {
-            return await _dbContext.Ves.Select(x => new VeDto()
-            {
-                //Id = x.Id,
-                //NgayDien = x.NgayDien,
-                //QRCode = x.QRCode,
-            }).ToListAsync();
-        }
-
-        //public async Task<IEnumerable<Ve> GetAll()
-        //{
-        //    return await _dbContext.Ves.Select(x => new Ve()
-        //    {
-        //        //Id = x.Id,
-        //        //NgayDien= x.NgayDien,
-        //        //QRCode= x.QRCode,
-        //    }).ToListAsync();
-        //}
-
-
-        public async Task<IEnumerable<Ve>> Search(string ten)
-        {
-            IQueryable<Ve> query = _dbContext.Ves;
-
-            if (!string.IsNullOrEmpty(ten))
-            {
-                query = query.Where(x => x.GiaVe == ten);
-            }
-
-
-
-
-            return await query.ToListAsync();
-        }
+       
 
 
         public async Task<Ve> Create(Ve ve)

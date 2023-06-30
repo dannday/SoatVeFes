@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SoatVe.Data;
-using SoatVe.Interface;
+using SoatVe.Services;
 using SoatVe.Models;
-using SoatVe.Repository;
+using SoatVe.ViewModel;
 
 namespace SoatVe.Controllers
 {
@@ -29,15 +27,27 @@ namespace SoatVe.Controllers
         }
 
 
+       
+
         [HttpPost]
-        public async Task<IActionResult> Create(Models.DiaDiem ddiem)
+        public async Task<AddDiaDiem> Add(ViewModel.AddDiaDiem add)
         {
 
-            var ddiems = await _ddRepository.Create(ddiem);
-            return CreatedAtAction(nameof(GetById), new { id = ddiem.Id }, ddiems);
+            var ddiem = new DiaDiem()
+            {
+                
+                Ten = add.Ten,
+                HinhAnh = add.HinhAnh,
+                MoTa = add.MoTa,
+
+            };
+            await _ddRepository.Create(ddiem);
+
+            //await _cTRepository.AddAsync(ctrinhs);
+            //await _cTRepository.SaveChangesAsync();
+            return add;
+
         }
-
-
 
 
 
@@ -66,15 +76,14 @@ namespace SoatVe.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateDiaDiemRequest([FromRoute] int id, UpdateDiaDiemRequest updateDiaDiemRequest)
+        public async Task<IActionResult> UpdateDiaDiem([FromRoute] int id, ViewModel.UpdateDiaDiem updateDiaDiemRequest)
         {
             var ddiem = await _ddRepository.GetById(id);
             if (ddiem != null)
             {
-                //ddiem.Ten = updateDiaDiemRequest.Ten;
-                //ddiem.DiaDiem = updateDiaDiemRequest.DiaDiem;
-                //ddiem.HinhAnh = updateDiaDiemRequest.HinhAnh;
-                //ddiem.MoTa = updateDiaDiemRequest.MoTa;
+                ddiem.Ten = updateDiaDiemRequest.Ten;
+                ddiem.HinhAnh = updateDiaDiemRequest.HinhAnh;
+                ddiem.MoTa = updateDiaDiemRequest.MoTa;
 
                 await _ddRepository.Update(ddiem);
 

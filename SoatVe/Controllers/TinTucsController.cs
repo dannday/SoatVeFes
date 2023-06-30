@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SoatVe.Interface;
 using SoatVe.Models;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 using System;
 
 namespace SoatVe.Controllers
@@ -57,11 +58,19 @@ namespace SoatVe.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(Models.TinTuc ttuc)
+        public async Task<AddTinTuc> AddTinTuc(ViewModel.AddTinTuc add)
         {
+            var ttuc = new TinTuc()
+            {
+                Ten = add.Ten,
+                HinhAnh=add.HinhAnh,
+                NoiDung = add.NoiDung,
+                NgayDang= add.NgayDang
+            };
 
-            var ttucs = await _tTRepository.Create(ttuc);
-            return CreatedAtAction(nameof(GetById), new { id = ttuc.Id }, ttucs);
+            await _tTRepository.Create(ttuc);
+
+            return add;
         }
 
 
@@ -70,15 +79,15 @@ namespace SoatVe.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateTinTucRequest([FromRoute] int id, UpdateTinTucRequest updateTinTucRequest)
+        public async Task<IActionResult> UpdateTinTucRequest([FromRoute] int id, ViewModel.UpdateTinTuc updateTinTucRequest)
         {
             var ttuc = await _tTRepository.GetById(id);
             if (ttuc != null)
             {
-                //ttuc.Ten = updateTinTucRequest.Ten;
-                //ttuc.DiaDiem = updateTinTucRequest.DiaDiem;
-                //ttuc.HinhAnh = updateTinTucRequest.HinhAnh;
-                //ttuc.MoTa = updateTinTucRequest.MoTa;
+                ttuc.Ten = updateTinTucRequest.Ten;
+                ttuc.HinhAnh = updateTinTucRequest.HinhAnh;
+                ttuc.NoiDung = updateTinTucRequest.NoiDung;
+                ttuc.NgayDang = updateTinTucRequest.NgayDang;
 
                 await _tTRepository.Update(ttuc);
 

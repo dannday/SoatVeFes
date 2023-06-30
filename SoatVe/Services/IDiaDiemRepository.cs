@@ -1,11 +1,11 @@
-﻿using SoatVe.Models.DTO;
-using SoatVe.Models;
+﻿using SoatVe.Models;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Interface
+namespace SoatVe.Services
 {
     public interface IDiaDiemRepository
     {
-        Task<IEnumerable<DDiemDto>> GetDiaDiems();
+        Task<IEnumerable<DiaDiemVM>> GetDiaDiems();
 
         Task<IEnumerable<DiaDiem>> Search(string ten);
 

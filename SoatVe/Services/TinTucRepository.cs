@@ -1,10 +1,10 @@
 ﻿using SoatVe.Data;
-using SoatVe.Interface;
-using SoatVe.Models.DTO;
+
 using SoatVe.Models;
 using Microsoft.EntityFrameworkCore;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Repository
+namespace SoatVe.Services
 {
     public class TinTucRepository : ITinTucRepository
     {
@@ -15,14 +15,13 @@ namespace SoatVe.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<CTDto>> GetTinTucs()
+        public async Task<IEnumerable<TinTucVM>> GetTinTucs()
         {
-            return await _dbContext.TinTucs.Select(x => new CTDto()
+            return await _dbContext.TinTucs.Select(x => new TinTucVM()
             {
-                //Id = x.Id,
-                //Ten = x.Ten,
-                //DiaDiem = x.DiaDiem,
-                //type_progame = x.type_progame,
+                Ten= x.Ten,
+                HinhAnh= x.HinhAnh,
+                NgayDang= x.NgayDang,
             }).ToListAsync();
         }
 

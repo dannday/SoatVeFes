@@ -1,11 +1,11 @@
-﻿using SoatVe.Models.DTO;
-using SoatVe.Models;
+﻿using SoatVe.Models;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Interface
+namespace SoatVe.Services
 {
     public interface ITinTucRepository
     {
-        Task<IEnumerable<CTDto>> GetTinTucs();
+        Task<IEnumerable<TinTucVM>> GetTinTucs();
         Task<IEnumerable<TinTuc>> Search(string ten);
 
         Task<TinTuc> Create(TinTuc tintuc);

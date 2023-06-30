@@ -1,10 +1,10 @@
 ﻿using SoatVe.Data;
-using SoatVe.Interface;
-using SoatVe.Models.DTO;
 using SoatVe.Models;
 using Microsoft.EntityFrameworkCore;
+using SoatVe.Services;
+using SoatVe.ViewModel;
 
-namespace SoatVe.Repository
+namespace SoatVe.Services
 {
     public class ThongTinRepository : IThongTinRepository
     {
@@ -15,14 +15,11 @@ namespace SoatVe.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<CTDto>> GetThongTins()
+        public async Task<IEnumerable<ThongTinVM>> GetThongTins()
         {
-            return await _dbContext.ThongTins.Select(x => new CTDto()
+            return await _dbContext.ThongTins.Select(x => new ThongTinVM()
             {
-                //Id = x.Id,
-                //Ten = x.Ten,
-                //DiaDiem = x.DiaDiem,
-                //type_progame = x.type_progame,
+               Ten=x.Ten,
             }).ToListAsync();
         }
 

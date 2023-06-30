@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoatVe.Data;
 
@@ -11,9 +12,11 @@ using SoatVe.Data;
 namespace SoatVe.Migrations
 {
     [DbContext(typeof(SoatVeDbContext))]
-    partial class SoatVeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230630091122_new1")]
+    partial class new1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

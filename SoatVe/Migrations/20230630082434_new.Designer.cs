@@ -12,7 +12,7 @@ using SoatVe.Data;
 namespace SoatVe.Migrations
 {
     [DbContext(typeof(SoatVeDbContext))]
-    [Migration("20230627110532_new")]
+    [Migration("20230630082434_new")]
     partial class @new
     {
         /// <inheritdoc />
@@ -33,9 +33,8 @@ namespace SoatVe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DiaDiem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DiaDiemId")
+                        .HasColumnType("int");
 
                     b.Property<string>("HinhAnh")
                         .IsRequired()
@@ -49,10 +48,18 @@ namespace SoatVe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("type_progame")
+                    b.Property<int?>("VeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("type_progame")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DiaDiemId");
+
+                    b.HasIndex("VeId");
 
                     b.ToTable("ChuongTrinhs");
                 });
@@ -69,7 +76,7 @@ namespace SoatVe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NoiDung")
+                    b.Property<string>("MoTa")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -89,6 +96,10 @@ namespace SoatVe.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("NoiDung")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
@@ -135,11 +146,11 @@ namespace SoatVe.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Sdt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sdt")
+                    b.Property<string>("Ten")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -170,9 +181,40 @@ namespace SoatVe.Migrations
                     b.Property<int>("Soluong")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Ves");
+                });
+
+            modelBuilder.Entity("SoatVe.Models.ChuongTrinh", b =>
+                {
+                    b.HasOne("SoatVe.Models.DiaDiem", "DiaDiem")
+                        .WithMany()
+                        .HasForeignKey("DiaDiemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SoatVe.Models.Ve", "Ve")
+                        .WithMany()
+                        .HasForeignKey("VeId");
+
+                    b.Navigation("DiaDiem");
+
+                    b.Navigation("Ve");
+                });
+
+            modelBuilder.Entity("SoatVe.Models.Ve", b =>
+                {
+                    b.HasOne("SoatVe.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
