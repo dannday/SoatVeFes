@@ -1,4 +1,6 @@
-﻿namespace SoatVe.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoatVe.ViewModel
 {
     public class UserVM
     
@@ -8,10 +10,13 @@
 
     public class RegisterRequest
     {
+        [Required]
         public string Ten { get; set; }
+        [Required]
         public string Sdt { get; set; }
+        [Required]
         public string Password { get; set; }
-
+        [Required]
         public string Email { get; set; }
 
     }

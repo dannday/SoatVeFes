@@ -1,4 +1,6 @@
-﻿namespace SoatVe.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoatVe.ViewModel
 {
     public class ThongTinVM
     {
@@ -9,7 +11,9 @@
 
     public class AddThongTin
     {
+        [Required]
         public string Ten { get; set; }
+        [Required]
         public string NoiDung { get; set; }
     }
 

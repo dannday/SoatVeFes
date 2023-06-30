@@ -43,8 +43,6 @@ namespace SoatVe.Controllers
             };
             await _ddRepository.Create(ddiem);
 
-            //await _cTRepository.AddAsync(ctrinhs);
-            //await _cTRepository.SaveChangesAsync();
             return add;
 
         }

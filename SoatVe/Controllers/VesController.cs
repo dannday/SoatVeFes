@@ -29,7 +29,8 @@ namespace SoatVe.Controllers
                 Soluong = add.Soluong,
                 GiaVe = add.GiaVe,
                 QRCode = add.QRCode,
-               
+               UserId = add.UserId,
+               ChuongTrinhId =add.ChuongTrinhId,
 
             };
 

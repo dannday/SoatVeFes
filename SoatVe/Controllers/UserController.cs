@@ -23,39 +23,39 @@ namespace SoatVe.Controllers
         }
 
 
-        //[HttpPost("authenticate")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
-        //{
-        //    if(!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+        [HttpPost("authenticate")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var resultToken = await _userRepository.Authencate(request);
+            var resultToken = await _userRepository.Authencate(request);
 
-        //    if (string.IsNullOrEmpty(resultToken))
-        //    {
-        //        return BadRequest("Khong ton tai");
-        //    }
-        //    return Ok(new { token = resultToken });
-        //}
+            if (string.IsNullOrEmpty(resultToken))
+            {
+                return BadRequest("Khong ton tai");
+            }
+            return Ok(new { token = resultToken });
+        }
 
 
 
-        //[HttpPost("register")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Register([FromBody] RegisterRequest request)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return BadRequest(ModelState);
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //    var result = await _userRepository.Register(request);
+            var result = await _userRepository.Register(request);
 
-        //    if (!result)
-        //    {
-        //        return BadRequest("Khong Thanh Cong");
-        //    }
-        //    return Ok();
-        //}
+            if (!result)
+            {
+                return BadRequest("Khong Thanh Cong");
+            }
+            return Ok();
+        }
 
 
 
@@ -67,8 +67,8 @@ namespace SoatVe.Controllers
         //[HttpGet]
         //public async Task<IActionResult> GetAll()
         //{
-        //    var ctrinhs = await _userRepository.GetUsers();
-        //    return Ok(ctrinhs);
+        //    var users = await _userRepository.GetUsers();
+        //    return Ok(users);
         //}
 
 
@@ -79,11 +79,11 @@ namespace SoatVe.Controllers
         {
             try
             {
-                var ctrinhs = await _userRepository.Search(ten);
+                var users = await _userRepository.Search(ten);
 
-                if (ctrinhs.Any())
+                if (users.Any())
                 {
-                    return Ok(ctrinhs);
+                    return Ok(users);
                 }
                 return NotFound();
             }
@@ -99,11 +99,11 @@ namespace SoatVe.Controllers
 
 
         //[HttpPost]
-        //public async Task<IActionResult> Create(Models.User ctrinh)
+        //public async Task<IActionResult> Create(Models.User user)
         //{
 
-        //    var ctrinhs = await _userRepository.Create(ctrinh);
-        //    return CreatedAtAction(nameof(GetById), new { id = ctrinh.Id }, ctrinhs);
+        //    var users = await _userRepository.Create(user);
+        //    return CreatedAtAction(nameof(GetById), new { id = user.Id }, users);
         //}
 
 
@@ -112,19 +112,19 @@ namespace SoatVe.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public async Task<IActionResult> UpdateUserRequest([FromRoute] int id, UpdateUserRequest updateUserRequest)
+        public async Task<IActionResult> UpdateUserRequest([FromRoute] int id, ViewModel.UpdateUserRequest updateUserRequest)
         {
-            var ctrinh = await _userRepository.GetById(id);
-            if (ctrinh != null)
+            var user = await _userRepository.GetById(id);
+            if (user != null)
             {
-                //ctrinh.Ten = updateUserRequest.Ten;
-                //ctrinh.DiaDiem = updateUserRequest.DiaDiem;
-                //ctrinh.HinhAnh = updateUserRequest.HinhAnh;
-                //ctrinh.MoTa = updateUserRequest.MoTa;
+                user.Ten = updateUserRequest.Ten;
+                user.Email= updateUserRequest.Email;
+                user.Sdt = updateUserRequest.Sdt;
+                user.Password = updateUserRequest.Password;
 
-                await _userRepository.Update(ctrinh);
+                await _userRepository.Update(user);
 
-                return Ok(ctrinh);
+                return Ok(user);
             }
 
             return NotFound();
@@ -139,14 +139,14 @@ namespace SoatVe.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var ctrinhs = await _userRepository.GetById(id);
+            var users = await _userRepository.GetById(id);
 
-            if (ctrinhs == null)
+            if (users == null)
             {
                 return NotFound($"{id} is not found");
             }
 
-            return Ok(ctrinhs);
+            return Ok(users);
         }
 
 
@@ -155,15 +155,15 @@ namespace SoatVe.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var ctrinh = await _userRepository.GetById(id);
-            if (ctrinh != null)
+            var user = await _userRepository.GetById(id);
+            if (user != null)
             {
 
 
 
-                await _userRepository.Delete(ctrinh);
+                await _userRepository.Delete(user);
 
-                return Ok(ctrinh);
+                return Ok(user);
             }
 
             return NotFound();

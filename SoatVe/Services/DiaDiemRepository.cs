@@ -26,6 +26,25 @@ namespace SoatVe.Services
 
 
 
+        public DiaDiem_Details? Details(int id)
+        {
+            var ddiem = _dbContext.DiaDiems.FirstOrDefault(x => x.Id == id);
+
+            if (ddiem != null)
+            {
+                return new DiaDiem_Details
+                {
+                    Ten = ddiem.Ten,
+                    HinhAnh = ddiem.HinhAnh,
+                    MoTa = ddiem.MoTa,
+
+                };
+            }
+
+            return null;
+        }
+
+
 
         public async Task<IEnumerable<DiaDiem>> Search(string ten)
         {

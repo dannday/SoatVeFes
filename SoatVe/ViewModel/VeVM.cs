@@ -1,4 +1,5 @@
 ﻿using SoatVe.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SoatVe.ViewModel
 {
@@ -7,7 +8,7 @@ namespace SoatVe.ViewModel
 
         public DateTime NgayDien { get; set; }
         public string GiaVe { get; set; }
-        public string QRCode { get; set; }
+       
 
         
     }
@@ -15,11 +16,16 @@ namespace SoatVe.ViewModel
 
     public class AddVe
     {
-
+        [Required]
         public DateTime NgayDien { get; set; }
+        [Required]
         public int Soluong { get; set; }
+        [Required]
         public string GiaVe { get; set; }
+        [Required]
         public string QRCode { get; set; }
+       public int ChuongTrinhId { get; set; }
+        public int? UserId { get; set; }
 
     }
 

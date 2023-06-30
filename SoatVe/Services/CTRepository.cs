@@ -133,7 +133,7 @@ namespace SoatVe.Services
             return ctrinh;
         }
 
-        public CTVM_Details Details(int id)
+        public CTVM_Details? Details(int id)
         {
             var ctrinh =_dbContext.ChuongTrinhs.FirstOrDefault(x => x.Id == id);
             
@@ -142,7 +142,11 @@ namespace SoatVe.Services
                 return new CTVM_Details
                 {
                     Ten = ctrinh.Ten,
-                    GiaVe = ctrinh.Ve.GiaVe,
+                    HinhAnh = ctrinh.HinhAnh,
+                    TenDD = ctrinh.DiaDiem.Ten,
+                    MoTa = ctrinh.MoTa,
+                   
+                    
                 };
             }
 

@@ -1,4 +1,6 @@
-﻿namespace SoatVe.ViewModel
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SoatVe.ViewModel
 {
     public class TinTucVM
     {
@@ -9,9 +11,13 @@
 
     public class AddTinTuc
     {
+        [Required]
         public string Ten { get; set; }
+        [Required]
         public string HinhAnh { get; set; }
+        [Required]
         public string NoiDung { get; set; }
+        [Required]
         public DateTime NgayDang { get; set; }
 
     } 

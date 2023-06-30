@@ -11,13 +11,5 @@ namespace SoatVe.Models
 
     }
 
-    //public class AddThongTinRequest
-    //{
-    //    public string Ten { get; set; }
-    //}
-    //public class UpdateThongTinRequest
-    //{
-    //    public string Ten { get; set; }
-    //}
-
+   
 }

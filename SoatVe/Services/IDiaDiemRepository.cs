@@ -8,7 +8,7 @@ namespace SoatVe.Services
         Task<IEnumerable<DiaDiemVM>> GetDiaDiems();
 
         Task<IEnumerable<DiaDiem>> Search(string ten);
-
+        DiaDiem_Details Details(int id);
 
         Task<DiaDiem> Create(DiaDiem ddiem);
         Task<DiaDiem> Update(DiaDiem ddiem);

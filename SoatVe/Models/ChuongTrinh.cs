@@ -16,8 +16,7 @@ namespace SoatVe.Models
         public int DiaDiemId { get; set; }
        public virtual DiaDiem DiaDiem { get; set; }
 
-        public int? VeId { get; set; }
-        public virtual Ve Ve { get; set; }
+       public IEnumerable<Ve> Ves { get; set; }
 
     }
 

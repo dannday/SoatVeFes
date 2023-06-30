@@ -71,7 +71,8 @@ namespace SoatVe.Controllers
                 HinhAnh = add.HinhAnh,
                 MoTa = add.MoTa,
                 type_progame = add.type_progame,
-                DiaDiemId = add.DiaDiemId
+                DiaDiemId = add.DiaDiemId,
+                
             };
             await _cTRepository.Create(ctrinhs);
 

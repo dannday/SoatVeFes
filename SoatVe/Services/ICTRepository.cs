@@ -12,6 +12,7 @@ namespace SoatVe.Services
 
         CTVM_Details Details(int id);
 
+
         Task<ChuongTrinh> Create(ChuongTrinh ctrinh);
         Task<ChuongTrinh> Update(ChuongTrinh ctrinh);
         Task<ChuongTrinh> Delete(ChuongTrinh ctrinh);

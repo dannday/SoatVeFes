@@ -12,6 +12,9 @@ namespace SoatVe.Models
         public string GiaVe { get; set; }
         public string QRCode { get; set; }
 
+        public int ChuongTrinhId { get; set; }
+        public virtual ChuongTrinh ChuongTrinh { get; set; }
+
         public int? UserId { get; set; }
         public virtual User User { get; set; }
 
